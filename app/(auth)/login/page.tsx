@@ -1,13 +1,35 @@
 "use client"; // Indiquer que ce fichier est un composant client
 
-import {useState} from "react";
-import {signIn} from "next-auth/react";
-import {useRouter} from "next/navigation";
+// 2. Importer les composants MUI
+import React, { useState } from 'react';
+import { TextField, Button, Container, Box, Typography, Alert } from '@mui/material';
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { styled } from '@mui/system';
 
-export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const BackgroundContainer = styled(Container)({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  backgroundImage: 'url(https://source.unsplash.com/random)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+});
+
+const FormBox = styled(Box)({
+  width: '100%',
+  maxWidth: 400,
+  padding: 24,
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  borderRadius: 8,
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+});
+
+const Page = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
   // Gérer la soumission du formulaire de connexion
@@ -30,38 +52,41 @@ export default function Login() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        style={{width: "300px", padding: "20px", border: "1px solid #ccc"}}
-      >
-        <h2>Connexion</h2>
-        <input
-          type="text"
-          placeholder="Nom d’utilisateur"
+    <BackgroundContainer maxWidth={false}>
+      <FormBox as="form" onSubmit={handleSubmit}>
+        <Typography variant="h4" component="h2" gutterBottom align="center" color='info' fontWeight='bold'>
+          Connexion
+        </Typography>
+        <TextField
+          label="Nom d’utilisateur"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{width: "100%", margin: "10px 0", padding: "10px"}}
         />
-        <input
+        <TextField
+          label="Mot de passe"
           type="password"
-          placeholder="Mot de passe"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{width: "100%", margin: "10px 0", padding: "10px"}}
         />
-        {error && <p style={{color: "red"}}>{error}</p>}
-        <button type="submit" style={{width: "100%", padding: "10px"}}>
+        {error && <Alert severity="error">{error}</Alert>}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 2 }}
+        >
           Se connecter
-        </button>
-      </form>
-    </div>
+        </Button>
+      </FormBox>
+    </BackgroundContainer>
   );
-}
+};
+
+export default Page;

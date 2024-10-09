@@ -1,84 +1,74 @@
 "use client";
+import { Button, Container, Typography, Box, Link } from "@mui/material";
 import Image from "next/image";
-import styles from "./page.module.css";
-import {signOut} from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export default function Home() {
   const handleLogout = () => {
-    // Appeler signOut pour déconnecter l'utilisateur
     signOut({
-      callbackUrl: "/login", // Rediriger l'utilisateur vers la page de connexion après déconnexion
+      callbackUrl: "/login",
     });
   };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    <Container maxWidth="md">
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
         <Image
-          className={styles.logo}
           src="https://nextjs.org/icons/next.svg"
           alt="Next.js logo"
           width={180}
           height={38}
           priority
         />
-
-        <div className={styles.ctas}>
-          <button className={styles.primary} onClick={handleLogout}>
+        <Box mt={4}>
+          <Button variant="contained" color="primary" onClick={handleLogout} startIcon={
             <Image
-              className={styles.logo}
               src="https://nextjs.org/icons/vercel.svg"
               alt="Vercel logomark"
               width={20}
               height={20}
             />
+          }>
             Se déconnecter
-          </button>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          </Button>
+        </Box>
+      </Box>
+      <Box component="footer" mt={4} textAlign="center">
+        <Typography variant="body2" color="textSecondary">
+          <Link href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
+            <Image
+              aria-hidden
+              src="https://nextjs.org/icons/file.svg"
+              alt="File icon"
+              width={16}
+              height={16}
+            />
+            Learn
+          </Link>
+          {" | "}
+          <Link href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
+            <Image
+              aria-hidden
+              src="https://nextjs.org/icons/window.svg"
+              alt="Window icon"
+              width={16}
+              height={16}
+            />
+            Examples
+          </Link>
+          {" | "}
+          <Link href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
+            <Image
+              aria-hidden
+              src="https://nextjs.org/icons/globe.svg"
+              alt="Globe icon"
+              width={16}
+              height={16}
+            />
+            Go to nextjs.org →
+          </Link>
+        </Typography>
+      </Box>
+    </Container>
   );
 }
